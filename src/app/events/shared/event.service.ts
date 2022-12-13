@@ -311,4 +311,8 @@ export class EventService {
   getEvents(): any {
     return this.EVENTS;
   }
+
+  getEvent(id: number): any {
+    return this.EVENTS.find(event => event.id === id);
+  }
 }
