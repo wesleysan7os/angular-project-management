@@ -11,6 +11,7 @@ import { EventDetailsComponent } from './events/event-details/event-details.comp
 import { EventRouteActivator } from './events/event-details/event-route-activator.service';
 import { EventThumbnailComponent } from './events/event-thumbnail.component';
 import { EventsListComponent } from './events/events-list.component';
+import { EventListResolver } from './events/shared/event-list-resolver.service';
 import { EventService } from './events/shared/event.service';
 import { NavBarComponent } from './nav/navbar.component';
 import { appRoutes } from './routes';
@@ -31,6 +32,7 @@ import { checkDirtyState } from './utils/function-guard';
     EventService,
     ToastrService,
     EventRouteActivator,
+    EventListResolver,
     {
       provide: 'canDeactivateCreateEvent',
       useValue: checkDirtyState
