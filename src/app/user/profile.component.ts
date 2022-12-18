@@ -6,18 +6,37 @@ import { AuthService } from './auth.service';
 
 @Component({
   templateUrl: './profile.component.html',
-  styles: [`
-    em { float: right; color: #E05C65; padding-left: 10px; }
-    .error input { background-color: #E3C3C5 }
-    .error ::-webkit-input-placeholder { color: #999; }
-    .error ::-moz-placeholder { color: #999 }
-    .error :-moz-placeholder { color: #999 }
-    .error :ms-input-placeholder { color: #999 }
-  `]
+  styles: [
+    `
+      em {
+        float: right;
+        color: #e05c65;
+        padding-left: 10px;
+      }
+      .error input {
+        background-color: #e3c3c5;
+      }
+      .error ::-webkit-input-placeholder {
+        color: #999;
+      }
+      .error ::-moz-placeholder {
+        color: #999;
+      }
+      .error :-moz-placeholder {
+        color: #999;
+      }
+      .error :ms-input-placeholder {
+        color: #999;
+      }
+    `,
+  ],
 })
 export class ProfileComponent implements OnInit {
-
-  constructor(private authService: AuthService, private router: Router, private fb: FormBuilder) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private fb: FormBuilder
+  ) {}
   profileForm: FormGroup;
 
   ngOnInit(): void {
@@ -29,8 +48,11 @@ export class ProfileComponent implements OnInit {
   }
   private buildFormModel(): void {
     this.profileForm = this.fb.group({
-      firstName: [this.authService.currentUser.firstName, Validators.required],
-      lastName: [this.authService.currentUser.lastName, Validators.required]
+      firstName: [
+        this.authService.currentUser.firstName,
+        [Validators.required, Validators.pattern('^[a-zA-z]*$')],
+      ],
+      lastName: [this.authService.currentUser.lastName, Validators.required],
     });
   }
 
@@ -44,14 +66,25 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  isFormFieldInvalid(field: string): boolean {
+  isFormFieldEmpty(field: string): boolean {
     if (!!this.profileForm.controls[field]) {
       return (
-        this.profileForm.controls[field].invalid &&
-        this.profileForm.controls[field].touched
+        this.profileForm.controls[field].errors &&
+        this.profileForm.controls[field].errors.required &&
+        this.profileForm.controls[field].dirty
       );
     }
     return false;
+  }
+
+  isFormFieldInvalid(field: string): boolean {
+    if (!!this.profileForm.controls[field]) {
+      return (
+        this.profileForm.controls[field].errors &&
+        this.profileForm.controls[field].errors.pattern &&
+        this.profileForm.controls[field].dirty
+      );
+    }
   }
 
   cancel(): void {

@@ -3,9 +3,10 @@
   <hr>
   <div class="col-md-4">
     <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" autocomplete="off" novalidate>
-      <div class="form-group" [class.error]="isFormFieldInvalid('firstName')">
+      <div class="form-group" [class.error]="isFormFieldEmpty('firstName') || isFormFieldInvalid('firstName')">
         <label for="firstName">First Name:</label>
-        <em *ngIf="isFormFieldInvalid('firstName')">Required</em>
+        <em *ngIf="isFormFieldEmpty('firstName')">Required</em>
+        <em *ngIf="isFormFieldInvalid('firstName')">Must start with a letter</em>
         <input
           id="firstName"
           type="text"
@@ -14,9 +15,9 @@
           formControlName="firstName"
         />
       </div>
-      <div class="form-group" [class.error]="isFormFieldInvalid('lastName')">
+      <div class="form-group" [class.error]="isFormFieldEmpty('lastName')">
         <label for="lastName">Last Name:</label>
-        <em *ngIf="isFormFieldInvalid('lastName')">Required</em>
+        <em *ngIf="isFormFieldEmpty('lastName')">Required</em>
         <input
           id="lastName"
           type="text"
