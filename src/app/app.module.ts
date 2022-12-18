@@ -20,9 +20,13 @@ import {
   EventService,
 } from './events/index';
 import { AuthService } from './user/auth.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [BrowserModule, RouterModule.forRoot(appRoutes)],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    RouterModule.forRoot(appRoutes)],
   declarations: [
     EventsAppComponent,
     EventsListComponent,
