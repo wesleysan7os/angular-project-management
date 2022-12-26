@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Event } from '../shared';
+import { Event, Session } from '../shared';
 import { EventService } from '../shared/event.service';
 
 @Component({
@@ -14,14 +14,32 @@ import { EventService } from '../shared/event.service';
       .event-image {
         height: 100px;
       }
+      a { cursor: pointer; }
     `,
   ],
 })
 export class EventDetailsComponent implements OnInit {
   event: Event;
-  constructor(private eventService: EventService, private route: ActivatedRoute) {}
+  addMode = false;
+constructor(private eventService: EventService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.event = this.eventService.getEvent(+this.route.snapshot.params.id);
+  }
+
+  addSession(): void {
+    this.addMode = true;
+  }
+
+  saveNewSession(session: Session): void {
+    const nextId = Math.max.apply(null, this.event.sessions.map(s => s.id));
+    session.id = nextId + 1;
+    this.event.sessions.push(session);
+    this.eventService.updateEvent(this.event);
+    this.addMode = false;
+  }
+
+  cancelAddSession(): void {
+    this.addMode = false;
   }
 }
