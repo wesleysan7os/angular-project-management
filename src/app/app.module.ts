@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
-import { ToastrService } from './common/toastr.service';
+import { ToastrService, CollapsibleWellComponent } from './common/index';
 import { Error404Component } from './errors/404.component';
 
 import { EventsAppComponent } from './events-app.component';
@@ -29,7 +29,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRoutes)],
+    RouterModule.forRoot(appRoutes),
+  ],
   declarations: [
     EventsAppComponent,
     EventsListComponent,
@@ -39,7 +40,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CreateEventComponent,
     Error404Component,
     CreateSessionComponent,
-    SessionListComponent
+    SessionListComponent,
+    CollapsibleWellComponent,
   ],
   providers: [
     EventService,
@@ -49,7 +51,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AuthService,
     {
       provide: 'canDeactivateCreateEvent',
-      useValue: checkDirtyState
+      useValue: checkDirtyState,
     },
   ],
   bootstrap: [EventsAppComponent],

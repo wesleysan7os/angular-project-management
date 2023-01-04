@@ -21,7 +21,8 @@ import { EventService } from '../shared/event.service';
 export class EventDetailsComponent implements OnInit {
   event: Event;
   addMode = false;
-constructor(private eventService: EventService, private route: ActivatedRoute) {}
+
+  constructor(private eventService: EventService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.event = this.eventService.getEvent(+this.route.snapshot.params.id);
