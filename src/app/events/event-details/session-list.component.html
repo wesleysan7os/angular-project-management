@@ -3,11 +3,11 @@
     <collapsible-well>
       <div well-title>
         {{ session.name }}
-        <i *ngIf="session.voters.lenght > 3" class="glyphicon glyphicon-fire" style="color: red"></i>
+        <i *ngIf="session.voters.length > 3" class="glyphicon glyphicon-fire" style="color: red"></i>
       </div>
       <div well-body>
         <h6>{{session.presenter}}</h6>
-        <span>Duration: {{session.duration}}</span><br />
+        <span>Duration: {{session.duration | duration}}</span><br />
         <span>Level: {{session.level}}</span>
         <p>{{session.abstract}}</p>
       </div>
