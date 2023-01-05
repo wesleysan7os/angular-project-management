@@ -21,6 +21,7 @@ import { EventService } from '../shared/event.service';
 export class EventDetailsComponent implements OnInit {
   event: Event;
   addMode = false;
+  filterBy = 'all';
 
   constructor(private eventService: EventService, private route: ActivatedRoute) {}
 
